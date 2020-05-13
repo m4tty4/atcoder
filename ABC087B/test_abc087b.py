@@ -42,3 +42,18 @@ if __name__ == "__main__":
     unittest.main()
 
 def resolve():
+    a = int(input())
+    b = int(input())
+    c = int(input())
+    X = int(input())
+
+    count = 0
+
+    for i in range(a + 1):
+        for j in range(b + 1):
+            for k in range(c + 1):
+                if (500 * i + 100 * j + 50 * k) == X:
+                    count = count + 1
+
+    print(count)
+
