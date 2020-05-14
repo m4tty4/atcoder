@@ -37,6 +37,12 @@ if __name__ == "__main__":
 
 def resolve():
     n = int(input())
-    array = int(input().split(' '))
+    array = list(map(int, input().split()))
 
-    
+    array.sort(reverse=True)
+
+    alice = sum(array[0::2])
+    bob = sum(array[1::2])
+    diff = alice - bob
+
+    print(diff)
