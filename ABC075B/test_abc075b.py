@@ -53,72 +53,21 @@ def resolve():
     h, w = map(int, input().split())
     s = [list(input()) for i in range(h)]
 
-    a = [[0]*w for _ in range(h)]
+    dx = [-1, -1, -1, 0, 0, 1, 1, 1]
+    dy = [-1,  0,  1, -1, 1,-1, 0, 1]
 
     for i in range(h):
         for j in range(w):
             if s[i][j] == '#':
-                a[i][j] = '#'
+                continue
+            elif s[i][j] == '.':
+                num = 0
+                for a in range(8):
+                    ni = i + dx[a]
+                    nj = j + dy[a]
 
-    for i in range(h):
-        for j in range(w):
-            if (s[i][j] == '#'):
-                if i == 0:
-                    if j == 0:
-                        incre(i, j, a, i, j+1)
-                        incre(i, j, a, i+1, j)
-                        incre(i, j, a, i+1, j+1)
-                    elif 0 < j < w - 1:
-                        incre(i, j, a, i-1, j)
-                        incre(i, j, a, i+1, j)
-                        incre(i, j, a, i-1, j+1)
-                        incre(i, j, a, i, j+1)
-                        incre(i, j, a, i+1, j+1)
-                    elif j == w-1:
-                        incre(i, j, a, i, j-1)
-                        incre(i, j, a, i-1, j-1)
-                        incre(i, j, a, i+1, j)
-                elif 0 < i < h - 1:
-                    if j == 0:
-                        incre(i, j, a, i-1, j)
-                        incre(i, j, a, i-1, j+1)
-                        incre(i, j, a, i, j+1)
-                        incre(i, j, a, i+1, j)
-                        incre(i, j, a, i+1, j+1)
-                    elif 0 < j < w - 1:
-                        incre(i, j, a, i-1, j-1)
-                        incre(i, j, a, i-1, j)
-                        incre(i, j, a, i-1, j+1)
-                        incre(i, j, a, i, j-1)
-                        incre(i, j, a, i, j+1)
-                        incre(i, j, a, i+1, j-1)
-                        incre(i, j, a, i+1, j)
-                        incre(i, j, a, i+1, j+1)
-                    elif j == w-1:
-                        incre(i, j, a, i-1, j)
-                        incre(i, j, a, i-1, j-1)
-                        incre(i, j, a, i, j-1)
-                        incre(i, j, a, i+1, j-1)
-                        incre(i, j, a, i+1, j)
-                elif i == h-1:
-                    if j == 0:
-                        incre(i, j, a, i-1, j)
-                        incre(i, j, a, i-1, j+1)
-                        incre(i, j, a, i, j+1)
-                    elif 0 < j < w - 1:
-                        incre(i, j, a, i-1, j-1)
-                        incre(i, j, a, i-1, j)
-                        incre(i, j, a, i-1, j+1)
-                        incre(i, j, a, i, j-1)
-                        incre(i, j, a, i, j+1)
-                    elif j == w-1:
-                        incre(i, j, a, i-1, j-1)
-                        incre(i, j, a, i-1, j)
-                        incre(i, j, a, i, j-1)
-    
-    [print(*i, sep="") for i in a]
+                    if (0 <= ni < h) and (0 <= nj < w) and (s[ni][nj] == '#'):
+                        num += 1
+                s[i][j] = num
 
-def incre(h, w, a, i, j):
-    print(h, w, i, j)
-    if a[i][j] != '#':
-        a[i][j] += 1
+    [print(*i,sep='') for i in s]

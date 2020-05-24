@@ -1,26 +1,75 @@
-a = 0
-b = 36
+def incre(h, w, a, i, j):
+    if 0 <= i <= h-1 and 0 <= j <= w-1 and a[i][j] != '#':
+        a[i][j] += 1
 
+h, w = map(int, input().split())
+s = [list(input()) for i in range(h)]
 
-List = []
-n = 10000
-for i in range(1, n + 1):
-    x, y, z, w, v= 0, 0, 0, 0, 0
-    x = i % 10
-    if i >= 10:
-        y = (i - x) % 100
-        y = int(y / 10)
-    if i >= 100:
-        z = (i - x - y) % 1000
-        z = int(z / 100)
-    if i >= 1000:
-        w = (i - x - y - z) % 10000
-        w = int(w / 1000)
-    if i >= 10000:
-        v = (i - x - y - z) % 100000
-        v = int(v / 10000)
-    sumnum = x + y + z + w + v
-    if sumnum >= a and sumnum <= b:
-        List.append(int(i))
-    print(i, x, y, z, w, v, sumnum, sep='\t')
-print(sum(List))
+a = [[0]*w for _ in range(h)]
+
+for i in range(h):
+    for j in range(w):
+        if s[i][j] == '#':
+            a[i][j] = '#'
+
+print(s)
+print(a)
+for i in range(h):
+    for j in range(w):
+        if (s[i][j] == '#'):
+            if i == 0:
+                if j == 0:
+                    incre(h, w, a, i, j+1)
+                    incre(h, w, a, i+1, j)
+                    incre(h, w, a, i+1, j+1)
+                elif 0 < j < w - 1:
+                    incre(h, w, a, i, j-1)
+                    incre(h, w, a, i, j+1)
+                    incre(h, w, a, i+1, j-1)
+                    incre(h, w, a, i+1, j)
+                    incre(h, w, a, i+1, j+1)
+
+                elif j == w-1:
+                    incre(h, w, a, i, j-1)
+                    incre(h, w, a, i-1, j-1)
+                    incre(h, w, a, i+1, j)
+            elif 0 < i < h - 1:
+                if j == 0:
+                    incre(h, w, a, i-1, j)
+                    incre(h, w, a, i-1, j+1)
+                    incre(h, w, a, i, j+1)
+                    incre(h, w, a, i+1, j)
+                    incre(h, w, a, i+1, j+1)
+                elif 0 < j < w - 1:
+                    incre(h, w, a, i-1, j-1)
+                    incre(h, w, a, i-1, j)
+                    incre(h, w, a, i-1, j+1)
+                    incre(h, w, a, i, j-1)
+                    incre(h, w, a, i, j+1)
+                    incre(h, w, a, i+1, j-1)
+                    incre(h, w, a, i+1, j)
+                    incre(h, w, a, i+1, j+1)
+                elif j == w-1:
+                    incre(h, w, a, i-1, j)
+                    incre(h, w, a, i-1, j-1)
+                    incre(h, w, a, i, j-1)
+                    incre(h, w, a, i+1, j-1)
+                    incre(h, w, a, i+1, j)
+            elif i == h-1:
+                if j == 0:
+                    incre(h, w, a, i-1, j)
+                    incre(h, w, a, i-1, j+1)
+                    incre(h, w, a, i, j+1)
+                elif 0 < j < w - 1:
+                    incre(h, w, a, i-1, j-1)
+                    incre(h, w, a, i-1, j)
+                    incre(h, w, a, i-1, j+1)
+                    incre(h, w, a, i, j-1)
+                    incre(h, w, a, i, j+1)
+                elif j == w-1:
+                    incre(h, w, a, i-1, j-1)
+                    incre(h, w, a, i-1, j)
+                    incre(h, w, a, i, j-1)
+
+[print(*i, sep="") for i in a]
+
